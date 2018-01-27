@@ -2,6 +2,9 @@ package qanswer
 
 import (
 	"flag"
+	//"fmt"
+	//"os"
+	//"os/exec"
 	"regexp"
 	"strings"
 	"sync"
@@ -50,6 +53,7 @@ Loop:
 		case termbox.EventKey:
 			switch ev.Key {
 			case termbox.KeySpace:
+				CleanScreen()
 				answerQuestion(cfg)
 				color.Yellow("\n\n请按空格键开始搜索答案...")
 			default:
@@ -58,6 +62,12 @@ Loop:
 		}
 	}
 
+}
+
+func CleanScreen() {
+	var vecByte []byte
+	vecByte = make([]byte, 4096, 4096)
+	color.Output.Write(vecByte)
 }
 
 func answerQuestion(cfg *config.Config) {
@@ -127,7 +137,7 @@ func answerQuestion(cfg *config.Config) {
 
 		for key, val := range answerResult {
 			color.Green("%v", answerArr[key])
-			color.Green(": 结果总数 %d ， 答案出现频率： %d", val.Sum, val.Freq)
+			color.Green(": 答案出现次数： %d， 搜索相关度 %d ", val.Freq, val.Sum)
 		}
 		color.Red("======================================")
 	}
