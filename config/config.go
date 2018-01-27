@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	yaml "gopkg.in/yaml.v1"
+	yaml "github.com/go-yaml/yaml"
 )
 
 //Config 全局配置

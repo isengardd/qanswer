@@ -43,7 +43,8 @@ func saveImage(png image.Image, cfg *config.Config) error {
 
 	go func() {
 		defer wg.Done()
-		pic := thresholdingImage(answerImg)
+		//pic := thresholdingImage(answerImg)
+		pic := answerImg
 		err = util.SavePNG(proto.AnswerImage, pic)
 		if err != nil {
 			log.Errorf("保存answer截图失败，%v", err)

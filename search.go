@@ -29,28 +29,36 @@ func GetSearchResult(question string, answers []string) map[string][]*SearchResu
 
 func baiduSearch(question string, answers []string) (result []*SearchResult) {
 	resultMap := make(map[string]*SearchResult, len(answers))
-
-	//搜索题目
-	searchURL := fmt.Sprintf("http://www.baidu.com/s?wd=%s", url.QueryEscape(question))
-	questionBody, err := util.HTTPGet(searchURL, 5)
-	if err != nil {
-		log.Errorf("search question:%s error", question)
-		return
-	}
-
-	var wg sync.WaitGroup
-
 	for k, answer := range answers {
 		answer = plainAnswer(answer)
 		answers[k] = answer
 
+		searchResult := new(SearchResult)
+		resultMap[answer] = searchResult
+	}
+
+	var wg sync.WaitGroup
+	//搜索题目
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		searchURL := fmt.Sprintf("http://www.baidu.com/s?wd=%s", url.QueryEscape(question))
+		questionBody, err := util.HTTPGet(searchURL, 5)
+		if err != nil {
+			log.Errorf("search question:%s error", question)
+			return
+		}
+
+		for _, answer := range answers {
+			//题目搜索结果中包含的答案的数量
+			resultMap[answer].Freq = int32(strings.Count(string(questionBody), answer))
+		}
+	}()
+
+	for _, answer := range answers {
 		wg.Add(1)
 		go func(answer string) {
 			defer wg.Done()
-			searchResult := new(SearchResult)
-			//题目搜索结果中包含的答案的数量
-			searchResult.Freq = int32(strings.Count(string(questionBody), answer))
-
 			//题目+结果搜索的总数
 			keyword := fmt.Sprintf("%s %s", question, answer)
 			searchURL := fmt.Sprintf("http://www.baidu.com/s?wd=%s", url.QueryEscape(keyword))
@@ -63,10 +71,9 @@ func baiduSearch(question string, answers []string) (result []*SearchResult) {
 				if len(result) > 0 {
 					sum := result[0][1]
 					sum = strings.Replace(sum, ",", "", -1)
-					searchResult.Sum = util.MustInt32(sum)
+					resultMap[answer].Sum = util.MustInt32(sum)
 				}
 			}
-			resultMap[answer] = searchResult
 		}(answer)
 	}
 	wg.Wait()

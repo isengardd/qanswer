@@ -16,7 +16,7 @@ func NewTesseract(cfg *config.Config) *Tesseract {
 
 //GetText 根据图片路径获取识别文字
 func (tesseract *Tesseract) GetText(imgPath string) (string, error) {
-	body, err := exec.Command("tesseract", imgPath, "stdout", "-l", "chi_sim").Output()
+	body, err := exec.Command("tesseract", imgPath, "stdout", "-l", "chi_sim", "-psm", "6").Output()
 	if err != nil {
 		return "", err
 	}

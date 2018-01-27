@@ -117,12 +117,17 @@ func answerQuestion(cfg *config.Config) {
 
 	//搜索答案并显示
 	result := GetSearchResult(questionText, answerArr)
+	for _, val := range answerArr {
+		color.Green("%s", val)
+	}
 	for engine, answerResult := range result {
 		color.Red("================%s搜索==============", engine)
 		color.Cyan("%s \n", questionText)
 		color.Yellow("答案：")
+
 		for key, val := range answerResult {
-			color.Green("%s : 结果总数 %d ， 答案出现频率： %d", answerArr[key], val.Sum, val.Freq)
+			color.Green("%v", answerArr[key])
+			color.Green(": 结果总数 %d ， 答案出现频率： %d", val.Sum, val.Freq)
 		}
 		color.Red("======================================")
 	}
