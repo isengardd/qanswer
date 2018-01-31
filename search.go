@@ -3,11 +3,16 @@ package qanswer
 import (
 	"fmt"
 	"net/url"
+	"os"
 	"regexp"
 	"strings"
 	"sync"
 
+	"github.com/PuerkitoBio/goquery"
+	"github.com/fatih/color"
 	"github.com/ngaut/log"
+	"github.com/silenceper/qanswer/config"
+	"github.com/silenceper/qanswer/proto"
 	"github.com/silenceper/qanswer/util"
 )
 
@@ -43,10 +48,45 @@ func baiduSearch(question string, answers []string) (result []*SearchResult) {
 	go func() {
 		defer wg.Done()
 		searchURL := fmt.Sprintf("http://www.baidu.com/s?wd=%s", url.QueryEscape(question))
-		questionBody, err := util.HTTPGet(searchURL, 5)
-		if err != nil {
-			log.Errorf("search question:%s error", question)
-			return
+		//		questionBody, err := util.HTTPGet(searchURL, 5)
+		//		if err != nil {
+		//			log.Errorf("search question:%s error", question)
+		//			return
+		//		}
+
+		doc, err := goquery.NewDocument(searchURL)
+		questionBody := doc.Text()
+		if err == nil {
+			span := doc.Find("span.c-gap-right-small")
+			color.Green("百度首页推荐信息:\n%s", strings.TrimSpace(span.Text()))
+			// 空格表示有多个类
+			doc.Find("div.result.c-container").Each(func(i int, s *goquery.Selection) {
+				i = i + 1
+				if i > 5 {
+					return
+				}
+
+				resultId := s.Find("div.c-abstract")
+				color.Green("搜索栏%d:\n%s\n", i, strings.TrimSpace(resultId.Text()))
+			})
+		} else {
+			log.Errorf("goquery error, %s", err)
+		}
+
+		// 保存到本地
+		if config.GetConfig().Debug {
+			os.MkdirAll(proto.SearchResultPath, os.ModeDir)
+			file, createErr := os.Create(proto.SearchResultPath + "QuestionRes.txt")
+			if createErr != nil {
+				log.Error(createErr)
+			} else {
+				_, writeErr := file.Write([]byte(questionBody))
+				if writeErr != nil {
+					log.Error(writeErr)
+				}
+
+				file.Close()
+			}
 		}
 
 		for _, answer := range answers {

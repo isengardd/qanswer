@@ -3,6 +3,18 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "ZRs66L+e8E7J7/p9XmDSRZJrXM4=",
+			"path": "github.com/PuerkitoBio/goquery",
+			"revision": "2324bda66f504d95adef95070aeb15187b45d3cf",
+			"revisionTime": "2018-01-18T14:26:56Z"
+		},
+		{
+			"checksumSHA1": "Bgs5fKx4V8jxL/m/krOLmhS4az4=",
+			"path": "github.com/andybalholm/cascadia",
+			"revision": "349dd0209470eabd9514242c688c403c0926d266",
+			"revisionTime": "2016-12-24T14:14:13Z"
+		},
+		{
 			"checksumSHA1": "2NXO9WZihD2R2eB3U/Js6RzZFGw=",
 			"path": "github.com/fatih/color",
 			"revision": "5df930a27be2502f99b292b7cc09ebad4d0891f4",
@@ -57,6 +69,12 @@
 			"path": "github.com/patrickmn/go-cache",
 			"revision": "a3647f8e31d79543b2d0f0ae2fe5c379d72cedc0",
 			"revisionTime": "2017-07-22T04:01:10Z"
+		},
+		{
+			"checksumSHA1": "ag6CP2CjfMRiJxDuBDVKytu5sR8=",
+			"path": "golang.org/x/net/html",
+			"revision": "0ed95abb35c445290478a5348a7b38bb154135fd",
+			"revisionTime": "2018-01-24T06:08:02Z"
 		},
 		{
 			"checksumSHA1": "jBzWOmKY4vGfgD+DVRzzFul+VP8=",

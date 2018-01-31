@@ -97,7 +97,7 @@ func answerQuestion(cfg *config.Config) {
 		//TIPS: 去除第一个数字 1-9 题目标号等干扰字符
 		//虽然有12个数字，但是 10-12 与最后的数字识别混在一起了
 		questionText, err = ocr.GetText(proto.QuestionImage)
-		replaceRe, _ := regexp.Compile(`^[1-9]?\'?\.?`)
+		replaceRe, _ := regexp.Compile(`^[1-9][0-9]?\.?`)
 		questionText = replaceRe.ReplaceAllString(questionText, "")
 		if err != nil {
 			log.Errorf("识别题目失败，%v", err)
@@ -127,8 +127,10 @@ func answerQuestion(cfg *config.Config) {
 
 	//搜索答案并显示
 	result := GetSearchResult(questionText, answerArr)
-	for _, val := range answerArr {
-		color.Green("%s", val)
+	if cfg.Debug {
+		for _, val := range answerArr {
+			color.Green("%s", val)
+		}
 	}
 	for engine, answerResult := range result {
 		color.Red("================%s搜索==============", engine)
