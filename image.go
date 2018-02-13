@@ -7,9 +7,9 @@ import (
 	"sync"
 
 	"github.com/ngaut/log"
-	"github.com/silenceper/qanswer/config"
-	"github.com/silenceper/qanswer/proto"
-	"github.com/silenceper/qanswer/util"
+	"qanswer/config"
+	"qanswer/proto"
+	"qanswer/util"
 )
 
 func saveImage(png image.Image, cfg *config.Config) error {

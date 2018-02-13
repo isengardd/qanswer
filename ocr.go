@@ -1,9 +1,9 @@
 package qanswer
 
 import (
-	"github.com/silenceper/qanswer/config"
-	"github.com/silenceper/qanswer/ocr"
-	"github.com/silenceper/qanswer/proto"
+	"qanswer/config"
+	"qanswer/ocr"
+	"qanswer/proto"
 )
 
 //Ocr ocr 识别图片文字

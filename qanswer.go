@@ -13,9 +13,9 @@ import (
 	"github.com/fatih/color"
 	"github.com/ngaut/log"
 	termbox "github.com/nsf/termbox-go"
-	"github.com/silenceper/qanswer/config"
-	"github.com/silenceper/qanswer/proto"
-	"github.com/silenceper/qanswer/util"
+	"qanswer/config"
+	"qanswer/proto"
+	"qanswer/util"
 )
 
 var cfgFilename = flag.String("config", "./config.yml", "配置文件路径")

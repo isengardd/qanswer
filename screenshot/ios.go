@@ -8,8 +8,8 @@ import (
 	"image"
 	"image/png"
 
-	"github.com/silenceper/qanswer/config"
-	"github.com/silenceper/qanswer/util"
+	"qanswer/config"
+	"qanswer/util"
 )
 
 //IOS 获取iOS截图

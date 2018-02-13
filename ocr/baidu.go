@@ -8,10 +8,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/silenceper/qanswer/cache"
-	"github.com/silenceper/qanswer/config"
-	"github.com/silenceper/qanswer/proto"
-	"github.com/silenceper/qanswer/util"
+	"qanswer/cache"
+	"qanswer/config"
+	"qanswer/proto"
+	"qanswer/util"
 )
 
 //Baidu baidu ocr api

@@ -3,7 +3,7 @@ package ocr
 import (
 	"os/exec"
 
-	"github.com/silenceper/qanswer/config"
+	"qanswer/config"
 )
 
 //Tesseract tesseract 识别

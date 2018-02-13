@@ -3,9 +3,9 @@ package qanswer
 import (
 	"image"
 
-	"github.com/silenceper/qanswer/config"
-	"github.com/silenceper/qanswer/proto"
-	"github.com/silenceper/qanswer/screenshot"
+	"qanswer/config"
+	"qanswer/proto"
+	"qanswer/screenshot"
 )
 
 //Screenshot 获取屏幕截图

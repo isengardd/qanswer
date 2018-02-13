@@ -1,6 +1,6 @@
 package main
 
-import "github.com/silenceper/qanswer"
+import "qanswer"
 
 func main() {
 	qanswer.Run()
